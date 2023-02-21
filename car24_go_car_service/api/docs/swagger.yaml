@@ -1,0 +1,1795 @@
+definitions:
+  models.CashBox:
+    properties:
+      cheque_id:
+        type: string
+      company_id:
+        type: string
+      id:
+        example: 844ea9f1-745a-4e4f-97ba-b034704cb5ee
+        type: string
+      name:
+        example: billz
+        type: string
+      payment_types:
+        items:
+          $ref: '#/definitions/models.CompanyCashBoxPaymentType'
+        type: array
+      shop:
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+        type: object
+      shop_id:
+        type: string
+    type: object
+  models.Cheque:
+    properties:
+      cheque_items:
+        items:
+          $ref: '#/definitions/models.ChequeItem'
+        type: array
+      company_id:
+        type: string
+      display_text:
+        example: logo_example
+        type: string
+      has_additional_info:
+        type: boolean
+      has_information_block:
+        type: boolean
+      has_logo:
+        type: boolean
+      has_lower_block:
+        type: boolean
+      id:
+        example: a3c6964d-451e-49a9-b0ae-ccbf8f5ab6ba
+        type: string
+      logo:
+        example: logo_example
+        type: string
+      logo_url:
+        type: string
+      name:
+        example: billz
+        type: string
+    type: object
+  models.ChequeItem:
+    properties:
+      cheque_id:
+        example: a3c6964d-451e-49a9-b0ae-ccbf8f5ab6ba
+        type: string
+      cheque_option:
+        $ref: '#/definitions/models.ChequeOption'
+      cheque_option_id:
+        type: string
+      id:
+        example: a3c6964d-451e-49a9-b0ae-ccbf8f5ab6ba
+        type: string
+      is_active:
+        type: boolean
+      sequence_number:
+        type: integer
+    type: object
+  models.ChequeOption:
+    properties:
+      block_type:
+        example: Block type
+        type: string
+      id:
+        example: a3c6964d-451e-49a9-b0ae-ccbf8f5ab6ba
+        type: string
+      name:
+        type: string
+      sequence_number:
+        example: 1
+        type: integer
+    type: object
+  models.Company:
+    properties:
+      address:
+        type: string
+      bank_accounts:
+        items:
+          $ref: '#/definitions/models.CompanyBankAccount'
+        type: array
+      country_id:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      inn:
+        type: string
+      is_active:
+        type: boolean
+      legal_country_id:
+        type: string
+      legal_name:
+        type: string
+      mfo:
+        type: string
+      name:
+        type: string
+      postcode:
+        type: string
+      subdomen:
+        type: string
+      time_zone_id:
+        type: string
+    type: object
+  models.CompanyBankAccount:
+    properties:
+      account_name:
+        type: string
+      account_number:
+        type: string
+      id:
+        type: string
+    type: object
+  models.CompanyCashBoxPaymentType:
+    properties:
+      company_payment_type:
+        $ref: '#/definitions/models.CompanyPaymentType'
+      company_payment_type_id:
+        type: string
+      id:
+        type: string
+      is_active:
+        type: boolean
+    type: object
+  models.CompanyCurrency:
+    properties:
+      company_id:
+        type: string
+      currency:
+        $ref: '#/definitions/models.Currency'
+      currency_id:
+        type: string
+      id:
+        type: string
+      value:
+        type: number
+    type: object
+  models.CompanyPaymentType:
+    properties:
+      company_id:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      payment_type:
+        $ref: '#/definitions/models.PaymentType'
+      payment_type_id:
+        type: string
+      token:
+        type: string
+    type: object
+  models.Country:
+    properties:
+      code:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  models.CreateCompanyRequest:
+    properties:
+      address:
+        type: string
+      bank_accounts:
+        items:
+          $ref: '#/definitions/models.CompanyBankAccount'
+        type: array
+      country_id:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      inn:
+        type: string
+      is_active:
+        type: boolean
+      legal_country_id:
+        type: string
+      legal_name:
+        type: string
+      mfo:
+        type: string
+      name:
+        type: string
+      postcode:
+        type: string
+      subdomen:
+        type: string
+      time_zone_id:
+        type: string
+    type: object
+  models.CreateCountryRequest:
+    properties:
+      code:
+        type: string
+      name:
+        $ref: '#/definitions/models.Language'
+    type: object
+  models.CreateCurrencyRequest:
+    properties:
+      name:
+        $ref: '#/definitions/models.Language'
+      symbol:
+        type: string
+    type: object
+  models.CreateDeliveryTariffModel:
+    properties:
+      company_id:
+        type: string
+      id:
+        type: string
+      name:
+        $ref: '#/definitions/models.Language'
+      price:
+        type: number
+    type: object
+  models.CreateResponse:
+    properties:
+      id:
+        type: string
+    type: object
+  models.CreateTaxTariffModel:
+    properties:
+      company_id:
+        type: string
+      id:
+        type: string
+      name:
+        $ref: '#/definitions/models.Language'
+      percent:
+        type: number
+    type: object
+  models.CreateTimeZoneRequest:
+    properties:
+      country_id:
+        type: string
+      gmt_offset:
+        type: integer
+      name:
+        $ref: '#/definitions/models.Language'
+      short_name:
+        type: string
+    type: object
+  models.Currency:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      symbol:
+        type: string
+    type: object
+  models.DeliveryTariff:
+    properties:
+      company_id:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      price:
+        type: number
+    type: object
+  models.Error:
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+    type: object
+  models.GetAllCashBoxesResponse:
+    properties:
+      cash_boxs:
+        items:
+          $ref: '#/definitions/models.CashBox'
+        type: array
+      count:
+        type: integer
+    type: object
+  models.GetAllChequeOptionsResponse:
+    properties:
+      cheque_options:
+        items:
+          $ref: '#/definitions/models.Cheque'
+        type: array
+    type: object
+  models.GetAllChequesResponse:
+    properties:
+      cheques:
+        items:
+          $ref: '#/definitions/models.Cheque'
+        type: array
+      count:
+        type: integer
+    type: object
+  models.GetAllCompaniesResponse:
+    properties:
+      companies:
+        items:
+          $ref: '#/definitions/models.Company'
+        type: array
+      count:
+        type: integer
+    type: object
+  models.GetAllCompanyCurrenciesResponse:
+    properties:
+      CompanyCurrencies:
+        items:
+          $ref: '#/definitions/models.CompanyCurrency'
+        type: array
+      count:
+        type: integer
+    type: object
+  models.GetAllCompanyPaymentTypesResponse:
+    properties:
+      company_payment_types:
+        items:
+          $ref: '#/definitions/models.CompanyPaymentType'
+        type: array
+      count:
+        type: integer
+    type: object
+  models.GetAllCountriesResponse:
+    properties:
+      count:
+        type: integer
+      countries:
+        items:
+          $ref: '#/definitions/models.Country'
+        type: array
+    type: object
+  models.GetAllCurrenciesResponse:
+    properties:
+      count:
+        type: integer
+      currencies:
+        items:
+          $ref: '#/definitions/models.Currency'
+        type: array
+    type: object
+  models.GetAllDeliveryTariffResponse:
+    properties:
+      count:
+        type: integer
+      delivery_tariff:
+        items:
+          $ref: '#/definitions/models.DeliveryTariff'
+        type: array
+    type: object
+  models.GetAllPaymentTypesResponse:
+    properties:
+      payment_types:
+        items:
+          $ref: '#/definitions/models.PaymentType'
+        type: array
+    type: object
+  models.GetAllShopsResponse:
+    properties:
+      count:
+        type: integer
+      shops:
+        items:
+          $ref: '#/definitions/models.Shop'
+        type: array
+    type: object
+  models.GetAllTaxTariffsResponse:
+    properties:
+      count:
+        type: integer
+      tax_tariffs:
+        items:
+          $ref: '#/definitions/models.TaxTariff'
+        type: array
+    type: object
+  models.GetAllTimeZonesResponse:
+    properties:
+      count:
+        type: integer
+      time_zones:
+        items:
+          $ref: '#/definitions/models.TimeZone'
+        type: array
+    type: object
+  models.Language:
+    properties:
+      en:
+        type: string
+      ru:
+        type: string
+      uz:
+        type: string
+    type: object
+  models.PaymentType:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  models.ResponseError:
+    properties:
+      error:
+        $ref: '#/definitions/models.Error'
+    type: object
+  models.ResponseOK:
+    properties:
+      message:
+        type: string
+    type: object
+  models.Shop:
+    properties:
+      address:
+        type: string
+      bank_accounts:
+        items:
+          $ref: '#/definitions/models.ShopBankAccount'
+        type: array
+      cash_boxes:
+        items:
+          $ref: '#/definitions/models.ShopCashbox'
+        type: array
+      cash_boxes_count:
+        type: integer
+      cheque_id:
+        type: string
+      company_id:
+        example: 48ebc11b-ae48-4789-851e-6ce0b0e5ddeb
+        type: string
+      facebook:
+        type: string
+      has_unique_details:
+        type: boolean
+      id:
+        example: a3c6964d-451e-49a9-b0ae-ccbf8f5ab6ba
+        type: string
+      instagram:
+        type: string
+      legal_country_id:
+        type: string
+      legal_name:
+        type: string
+      name:
+        example: billz
+        type: string
+      phone_numbers:
+        example:
+        - "+998935789768"
+        items:
+          type: string
+        type: array
+      postcode:
+        type: string
+      quadrature:
+        type: number
+      telegram:
+        type: string
+      website:
+        type: string
+      working_hours:
+        items:
+          $ref: '#/definitions/models.ShopWorkingHour'
+        type: array
+    type: object
+  models.ShopBankAccount:
+    properties:
+      account_name:
+        type: string
+      account_number:
+        type: string
+      id:
+        type: string
+    type: object
+  models.ShopCashbox:
+    properties:
+      id:
+        type: string
+      is_active:
+        type: boolean
+      name:
+        type: string
+    type: object
+  models.ShopWorkingHour:
+    properties:
+      end_time:
+        type: string
+      id:
+        example: a3c6964d-451e-49a9-b0ae-ccbf8f5ab6ba
+        type: string
+      is_active:
+        type: boolean
+      shop_id:
+        example: 48ebc11b-ae48-4789-851e-6ce0b0e5ddeb
+        type: string
+      start_time:
+        type: string
+      week_day:
+        type: integer
+    type: object
+  models.TaxTariff:
+    properties:
+      company_id:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      percent:
+        type: number
+    type: object
+  models.TimeZone:
+    properties:
+      country_id:
+        type: string
+      gmt_offset:
+        type: integer
+      id:
+        type: string
+      name:
+        type: string
+      short_name:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /v1/cash-box:
+    get:
+      consumes:
+      - application/json
+      description: API for get CashBoxes
+      parameters:
+      - in: query
+        name: company_id
+        required: true
+        type: string
+      - default: 10
+        in: query
+        name: limit
+        type: integer
+      - in: query
+        name: name
+        type: string
+      - default: 1
+        in: query
+        name: page
+        type: integer
+      - in: query
+        name: shop_id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetAllCashBoxesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get Cash Boxes
+      tags:
+      - cash-box
+  /v1/cash-box/{id}:
+    get:
+      consumes:
+      - application/json
+      description: API for getting сash box
+      parameters:
+      - default: ru
+        description: language
+        in: header
+        name: Accept-Language
+        required: true
+        type: string
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CashBox'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get Cash Box
+      tags:
+      - cash-box
+  /v1/cheque:
+    get:
+      consumes:
+      - application/json
+      description: API for get cheques
+      parameters:
+      - default: ru
+        description: language
+        in: header
+        name: Accept-Language
+        required: true
+        type: string
+      - in: query
+        name: company_id
+        required: true
+        type: string
+      - default: 10
+        in: query
+        name: limit
+        type: integer
+      - in: query
+        name: name
+        type: string
+      - default: 1
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetAllChequesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get cheques
+      tags:
+      - cheque
+  /v1/cheque-option:
+    get:
+      consumes:
+      - application/json
+      description: API for getting cheque option
+      parameters:
+      - default: ru
+        description: language
+        in: header
+        name: Accept-Language
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetAllChequeOptionsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get Cheque Options
+      tags:
+      - cheque
+  /v1/cheque/{id}:
+    get:
+      consumes:
+      - application/json
+      description: API for getting Cheque
+      parameters:
+      - default: ru
+        description: language
+        in: header
+        name: Accept-Language
+        required: true
+        type: string
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Cheque'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get Cheque
+      tags:
+      - cheque
+  /v1/company:
+    get:
+      consumes:
+      - application/json
+      description: API for get companies
+      parameters:
+      - default: 10
+        in: query
+        name: limit
+        type: integer
+      - in: query
+        name: name
+        type: string
+      - default: 1
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.GetAllCompaniesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get companies
+      tags:
+      - company
+    post:
+      consumes:
+      - application/json
+      description: API for creating company
+      parameters:
+      - description: company
+        in: body
+        name: Company
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateCompanyRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.ResponseOK'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Create Company
+      tags:
+      - company
+  /v1/company-currency:
+    get:
+      consumes:
+      - application/json
+      description: API for getting all company currencies
+      parameters:
+      - default: ru
+        description: language
+        in: header
+        name: Accept-Language
+        required: true
+        type: string
+      - in: query
+        name: company_id
+        required: true
+        type: string
+      - default: 10
+        in: query
+        name: limit
+        type: integer
+      - default: 1
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetAllCompanyCurrenciesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get All Company Currencies
+      tags:
+      - company-currency
+  /v1/company-currency/{id}:
+    get:
+      consumes:
+      - application/json
+      description: API for getting company currency
+      parameters:
+      - default: ru
+        description: language
+        in: header
+        name: Accept-Language
+        required: true
+        type: string
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CompanyCurrency'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get Company Currency
+      tags:
+      - company-currency
+  /v1/company-payment-type:
+    get:
+      consumes:
+      - application/json
+      description: API for getting all company payment types
+      parameters:
+      - default: ru
+        description: language
+        in: header
+        name: Accept-Language
+        required: true
+        type: string
+      - in: query
+        name: company_id
+        required: true
+        type: string
+      - default: 10
+        in: query
+        name: limit
+        type: integer
+      - default: 1
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetAllCompanyPaymentTypesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get All Company Payment Types
+      tags:
+      - company-payment-type
+  /v1/company-payment-type/{id}:
+    get:
+      consumes:
+      - application/json
+      description: API for getting company payment type
+      parameters:
+      - default: ru
+        description: language
+        in: header
+        name: Accept-Language
+        required: true
+        type: string
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CompanyPaymentType'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get Company Payment Type
+      tags:
+      - company-payment-type
+  /v1/company-search:
+    get:
+      consumes:
+      - application/json
+      description: API for search company
+      parameters:
+      - description: name
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Company'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Search company
+      tags:
+      - company
+  /v1/company/{id}:
+    get:
+      consumes:
+      - application/json
+      description: API for getting company
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Company'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get Company
+      tags:
+      - company
+  /v1/company/{id}/activate:
+    patch:
+      consumes:
+      - application/json
+      description: API for activating company
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.ResponseOK'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Activate Company
+      tags:
+      - company
+  /v1/country:
+    get:
+      consumes:
+      - application/json
+      description: API for getting all countries
+      parameters:
+      - default: ru
+        description: language
+        in: header
+        name: Accept-Language
+        required: true
+        type: string
+      - default: 1
+        in: query
+        name: limit
+        type: integer
+      - in: query
+        name: name
+        type: string
+      - default: 1
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetAllCountriesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get All Countries
+      tags:
+      - country
+    post:
+      consumes:
+      - application/json
+      description: API for creating country
+      parameters:
+      - description: country
+        in: body
+        name: country
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateCountryRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.CreateResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Create Country
+      tags:
+      - country
+  /v1/country/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: API for deleting country
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResponseOK'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Delete Country
+      tags:
+      - country
+    get:
+      consumes:
+      - application/json
+      description: API for getting country
+      parameters:
+      - default: ru
+        description: language
+        in: header
+        name: Accept-Language
+        required: true
+        type: string
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Country'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get Country
+      tags:
+      - country
+    put:
+      consumes:
+      - application/json
+      description: API for updating country
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: country
+        in: body
+        name: country
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateCountryRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResponseOK'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Update Country
+      tags:
+      - country
+  /v1/currency:
+    get:
+      consumes:
+      - application/json
+      description: API for getting all currencies
+      parameters:
+      - default: ru
+        description: language
+        in: header
+        name: Accept-Language
+        required: true
+        type: string
+      - default: 10
+        in: query
+        name: limit
+        type: integer
+      - in: query
+        name: name
+        type: string
+      - default: 1
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetAllCurrenciesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get All Currencies
+      tags:
+      - currency
+    post:
+      consumes:
+      - application/json
+      description: API for creating currency
+      parameters:
+      - description: currency
+        in: body
+        name: currency
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateCurrencyRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.CreateResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Create Currency
+      tags:
+      - currency
+  /v1/currency/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: API for deleting currency
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResponseOK'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Delete Currency
+      tags:
+      - currency
+    get:
+      consumes:
+      - application/json
+      description: API for getting currency
+      parameters:
+      - default: ru
+        description: language
+        in: header
+        name: Accept-Language
+        required: true
+        type: string
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Currency'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get Currency
+      tags:
+      - currency
+    put:
+      consumes:
+      - application/json
+      description: API for updating currency
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: currency
+        in: body
+        name: currency
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateCurrencyRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResponseOK'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Update Currency
+      tags:
+      - currency
+  /v1/delivery-tariff:
+    get:
+      consumes:
+      - application/json
+      description: API for getting all tax tariffs
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: name
+        type: string
+      - in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetAllDeliveryTariffResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get All Delivery tariffs
+      tags:
+      - delivery-tariff
+  /v1/delivery-tariff/{id}:
+    get:
+      consumes:
+      - application/json
+      description: API for getting delivery tariff
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CreateDeliveryTariffModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get delivery tariff
+      tags:
+      - delivery-tariff
+  /v1/payment-type:
+    get:
+      consumes:
+      - application/json
+      description: API for getting all payment types
+      parameters:
+      - default: ru
+        description: language
+        in: header
+        name: Accept-Language
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetAllPaymentTypesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get All Payment Types
+      tags:
+      - payment-type
+  /v1/shop:
+    get:
+      consumes:
+      - application/json
+      description: API for get shops
+      parameters:
+      - description: company_id
+        in: query
+        name: company_id
+        required: true
+        type: string
+      - default: 10
+        in: query
+        name: limit
+        type: integer
+      - in: query
+        name: name
+        type: string
+      - default: 1
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetAllShopsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get Shops
+      tags:
+      - shop
+  /v1/shop-search:
+    get:
+      consumes:
+      - application/json
+      description: API for search shop
+      parameters:
+      - description: name
+        in: query
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: shop
+          schema:
+            $ref: '#/definitions/models.Shop'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Search Shop
+      tags:
+      - shop
+  /v1/shop/{id}:
+    get:
+      consumes:
+      - application/json
+      description: API for getting shop
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Shop'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get Shop
+      tags:
+      - shop
+  /v1/tax-tariff:
+    get:
+      consumes:
+      - application/json
+      description: API for getting all tax tariffs
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: name
+        type: string
+      - in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetAllTaxTariffsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get All Tax tariffs
+      tags:
+      - tax-tariff
+  /v1/tax-tariff/{id}:
+    get:
+      consumes:
+      - application/json
+      description: API for getting Tax tariff
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CreateTaxTariffModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get Tax tariff
+      tags:
+      - tax-tariff
+  /v1/time-zone:
+    get:
+      consumes:
+      - application/json
+      description: API for getting all time zones
+      parameters:
+      - default: ru
+        description: language
+        in: header
+        name: Accept-Language
+        required: true
+        type: string
+      - in: query
+        name: country_id
+        type: string
+      - default: 1
+        in: query
+        name: limit
+        type: integer
+      - in: query
+        name: name
+        type: string
+      - default: 1
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetAllTimeZonesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get All Time Zones
+      tags:
+      - time-zone
+    post:
+      consumes:
+      - application/json
+      description: API for creating time zone
+      parameters:
+      - description: time_zone
+        in: body
+        name: time_zone
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateTimeZoneRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.CreateResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Create Time Zone
+      tags:
+      - time-zone
+  /v1/time-zone/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: API for deleting time zone
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResponseOK'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Delete Time Zone
+      tags:
+      - time-zone
+    get:
+      consumes:
+      - application/json
+      description: API for getting time zone
+      parameters:
+      - default: ru
+        description: language
+        in: header
+        name: Accept-Language
+        required: true
+        type: string
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.TimeZone'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Get Time Zone
+      tags:
+      - time-zone
+    put:
+      consumes:
+      - application/json
+      description: API for updating time zone
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: time_zone
+        in: body
+        name: time_zone
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateTimeZoneRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResponseOK'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Update Time Zone
+      tags:
+      - time-zone
+swagger: "2.0"

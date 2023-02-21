@@ -1,0 +1,262 @@
+definitions:
+  car24_car_service.CarListModel:
+    properties:
+      cars:
+        items:
+          $ref: '#/definitions/car24_car_service.CarModel'
+        type: array
+      count:
+        type: integer
+    type: object
+  car24_car_service.CarModel:
+    properties:
+      category_id:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      investor_id:
+        type: string
+      state_number:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  car24_car_service.CreateCarModel:
+    properties:
+      category_id:
+        type: string
+      id:
+        type: string
+      investor_id:
+        type: string
+      state_number:
+        type: string
+    type: object
+  car24_car_service.UpdateCarModel:
+    properties:
+      category_id:
+        type: string
+      id:
+        type: string
+      investor_id:
+        type: string
+      state_number:
+        type: string
+    type: object
+  response.Error:
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+    type: object
+  response.ResponseError:
+    properties:
+      error:
+        $ref: '#/definitions/response.Error'
+    type: object
+  response.ResponseOK:
+    properties:
+      message:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /v1/car:
+    get:
+      consumes:
+      - application/json
+      description: API for getting all cars
+      parameters:
+      - default: 10
+        in: query
+        name: limit
+        type: integer
+      - default: 0
+        in: query
+        name: offset
+        type: integer
+      - in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/car24_car_service.CarListModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: Get cars
+      tags:
+      - car
+    post:
+      consumes:
+      - application/json
+      description: API for creating car
+      parameters:
+      - default: 7d4a4c38-dd84-4902-b744-0488b80a4c01
+        description: platform-id
+        in: header
+        name: Platform-Id
+        required: true
+        type: string
+      - description: car
+        in: body
+        name: Car
+        required: true
+        schema:
+          $ref: '#/definitions/car24_car_service.CreateCarModel'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.ResponseOK'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: Create Car
+      tags:
+      - car
+  /v1/car/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: API for deleting car
+      parameters:
+      - default: 7d4a4c38-dd84-4902-b744-0488b80a4c01
+        description: platform-id
+        in: header
+        name: Platform-Id
+        required: true
+        type: string
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.ResponseOK'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete Car
+      tags:
+      - car
+    get:
+      consumes:
+      - application/json
+      description: API for getting car
+      parameters:
+      - default: 7d4a4c38-dd84-4902-b744-0488b80a4c01
+        description: platform-id
+        in: header
+        name: Platform-Id
+        required: true
+        type: string
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/car24_car_service.CarModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Car
+      tags:
+      - car
+    put:
+      consumes:
+      - application/json
+      description: API for updating car
+      parameters:
+      - default: 7d4a4c38-dd84-4902-b744-0488b80a4c01
+        description: platform-id
+        in: header
+        name: Platform-Id
+        required: true
+        type: string
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: car
+        in: body
+        name: Car
+        required: true
+        schema:
+          $ref: '#/definitions/car24_car_service.UpdateCarModel'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.ResponseOK'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: Update Car
+      tags:
+      - car
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
