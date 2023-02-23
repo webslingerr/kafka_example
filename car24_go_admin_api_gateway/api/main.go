@@ -1,8 +1,6 @@
 package api
 
 import (
-	"net/http"
-
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
@@ -30,8 +28,6 @@ type Config struct {
 func New(cnf Config) *gin.Engine {
 	r := gin.New()
 
-	r.Static("/images", "./static/images")
-
 	r.Use(gin.Logger())
 
 	r.Use(gin.Recovery())
@@ -50,19 +46,15 @@ func New(cnf Config) *gin.Engine {
 		Kafka:  cnf.Kafka,
 	})
 
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"data": "Api gateway"})
-	})
-
-	url := ginSwagger.URL("swagger/doc.json") // The url pointing to API definition
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
-
 	// Car endpoints
 	r.POST("/v1/car", handlerV1.CreateCar)
 	r.GET("/v1/car/:id", handlerV1.GetCar)
 	r.GET("/v1/car", handlerV1.GetAllCars)
 	r.PUT("/v1/car/:id", handlerV1.UpdateCar)
 	r.DELETE("/v1/car/:id", handlerV1.DeleteCar)
+
+	url := ginSwagger.URL("swagger/doc.json") // The url pointing to API definition
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 
 	return r
 }

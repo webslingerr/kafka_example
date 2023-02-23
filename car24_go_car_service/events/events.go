@@ -27,10 +27,6 @@ func New(cfg config.Config, log logger.Logger, db *sqlx.DB) (*PubsubServer, erro
 		return nil, err
 	}
 
-	kafka.AddPublisher("v1.car_service.car.created")
-	kafka.AddPublisher("v1.car_service.car.deleted")
-	kafka.AddPublisher("v1.car_service.car.updated")
-
 	return &PubsubServer{
 		cfg:   cfg,
 		log:   log,

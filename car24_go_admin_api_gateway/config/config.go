@@ -17,17 +17,6 @@ const (
 	CarExpenditureCategoryID      = 2
 	EmployeeExpenditureCategoryID = 3
 	TransferCategoryID            = 4
-
-	TransfeCashboxToCompanySubCategoryID = "278c8f5f-9627-4aa7-bfff-064d9dbf475b"
-	TariffSubCategoryID                  = "4b7322e4-980f-4db9-82b1-8f395efd87d5"
-	FuelSubCategoryID                    = "825f1720-54a8-44b2-b79c-40f1735d3ebf"
-	DepositSubCategoryID                 = "993224db-d25f-43cb-bfea-a8ee842f34b8"
-	FineSubCategoryID                    = "7b89250e-75d8-46a6-8e8f-844e31f1d1b7"
-	RepairSubCategoryID                  = "7cefe920-afb5-4980-a2ad-275720a94a35"
-	ReturnDepositSubCategoryID           = "2b9064ab-09b8-414d-adb3-a8ee1a3b7863"
-	GiveCarSubCategoryID                 = "616e9497-a224-49d2-aa65-a1b1a7310858"
-
-	InvestorClientTypeID = "5a3818a9-90f0-44e9-a053-3be0ba1e2c02"
 )
 
 // Config ...

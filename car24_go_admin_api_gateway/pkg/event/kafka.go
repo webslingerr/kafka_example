@@ -2,12 +2,9 @@ package event
 
 import (
 	"context"
-	"fmt"
-	"sync"
 
 	"github.com/Shopify/sarama"
 	"gitlab.udevs.io/car24/car24_go_admin_api_gateway/config"
-	models "gitlab.udevs.io/car24/car24_go_admin_api_gateway/modules/car24/response"
 	"gitlab.udevs.io/car24/car24_go_admin_api_gateway/pkg/logger"
 )
 
@@ -48,27 +45,4 @@ func (kafka *Kafka) RegisterPublishers() {
 	kafka.AddPublisher("v1.car_service.car.create")
 	kafka.AddPublisher("v1.car_service.car.delete")
 	kafka.AddPublisher("v1.car_service.car.update")
-}
-
-// RunConsumers ...
-func (kafka *Kafka) RunConsumers(ctx context.Context, wg *sync.WaitGroup, responses chan models.Response) {
-	for _, consumer := range kafka.consumers {
-		consumer.responses = responses
-		wg.Add(1)
-		go func(wg *sync.WaitGroup, c *Consumer) {
-			defer wg.Done()
-			for {
-				err := kafka.consumerGroup.Consume(c.ctx, []string{c.topic}, c)
-				if err != nil {
-					kafka.log.Fatal("error", logger.Error(err))
-					panic(err)
-				}
-				if c.ctx.Err() != nil {
-					return
-				}
-
-			}
-		}(wg, consumer)
-		fmt.Println("Key:", consumer.topic, "=>", "consumer:", consumer)
-	}
 }

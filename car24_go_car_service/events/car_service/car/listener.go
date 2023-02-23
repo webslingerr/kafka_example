@@ -35,12 +35,6 @@ func (c *CarService) Create(ctx context.Context, event cloudevents.Event) respon
 		return resp
 	}
 
-	resp, hasError = helper.HandleInternal(c.log, car.ID, "Error while sending push to v1.car_service.car.created topic", err)
-	if hasError {
-		resp.CorrelationID = car.ID
-		return resp
-	}
-
 	c.log.Info("Successfully created Car", logger.String("id", car.ID))
 
 	err = c.kafka.Push("v1.car_service.car.created", event)
