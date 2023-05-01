@@ -13,21 +13,21 @@ import (
 )
 
 // @Security ApiKeyAuth
-// @Router /v1/car [post]
-// @Summary Create Car
-// @Description API for creating car
-// @Tags car
+// @Router /v1/brand [post]
+// @Summary Create Brand
+// @Description API for creating brand
+// @Tags brand
 // @Accept json
 // @Produce json
 // @Param Platform-Id header string true "platform-id" default(7d4a4c38-dd84-4902-b744-0488b80a4c01)
-// @Param Car body car24_car_service.CreateCarModel true "car"
+// @Param Car body car24_car_service.CreateBrandModel true "brand"
 // @Success 201 {object} response.ResponseOK
 // @Failure 400 {object} response.ResponseError
 // @Failure 500 {object} response.ResponseError
-func (h *handlerV1) CreateCar(c *gin.Context) {
-	var car car24_car_service.CreateCarModel
+func (h *handlerV1) CreateBrand(c *gin.Context) {
+	var brand car24_car_service.CreateBrandModel
 
-	err := c.ShouldBindJSON(&car)
+	err := c.ShouldBindJSON(&brand)
 	if HandleError(c, h.log, err, "error while binding body to model") {
 		return
 	}
@@ -38,17 +38,17 @@ func (h *handlerV1) CreateCar(c *gin.Context) {
 	}
 
 	id, _ := uuid.NewRandom()
-	car.ID = id.String()
+	brand.ID = id.String()
 	e := cloudevents.NewEvent()
 	e.SetID(uuid.New().String())
 	e.SetSource(c.FullPath())
-	e.SetType("v1.car_service.car.create")
-	err = e.SetData(cloudevents.ApplicationJSON, car)
+	e.SetType("v1.car_service.brand.create")
+	err = e.SetData(cloudevents.ApplicationJSON, brand)
 	if HandleError(c, h.log, err, "error while setting event data") {
 		return
 	}
 
-	err = h.kafka.Push("v1.car_service.car.create", e)
+	err = h.kafka.Push("v1.car_service.brand.create", e)
 	if HandleError(c, h.log, err, "error while publishing event") {
 		return
 	}
@@ -59,56 +59,56 @@ func (h *handlerV1) CreateCar(c *gin.Context) {
 }
 
 // @Security ApiKeyAuth
-// @Router /v1/car/{id} [get]
-// @Summary Get Car
-// @Description API for getting car
-// @Tags car
+// @Router /v1/brand/{id} [get]
+// @Summary Get Brand
+// @Description API for getting brand
+// @Tags brand
 // @Accept json
 // @Produce json
 // @Param Platform-Id header string true "platform-id" default(7d4a4c38-dd84-4902-b744-0488b80a4c01)
 // @Param id path string true "id"
-// @Success 200 {object} car24_car_service.CarModel
+// @Success 200 {object} car24_car_service.BrandModel
 // @Failure 400 {object} response.ResponseError
 // @Failure 500 {object} response.ResponseError
-func (h *handlerV1) GetCar(c *gin.Context) {
+func (h *handlerV1) GetBrand(c *gin.Context) {
 	_ = h.MakeProxy(c, h.cfg.CarServiceURL, c.Request.URL.Path)
 }
 
 // @Security ApiKeyAuth
-// @Router /v1/car [get]
-// @Summary Get cars
-// @Description API for getting all cars
-// @Tags car
+// @Router /v1/brand [get]
+// @Summary Get brands
+// @Description API for getting all brand
+// @Tags brand
 // @Accept json
 // @Produce json
-// @Param find query car24_car_service.CarQueryParamModel false "filters"
-// @Success 200 {object} car24_car_service.CarListModel
+// @Param find query car24_car_service.BrandQueryParamModel false "filters"
+// @Success 200 {object} car24_car_service.BrandListModel
 // @Failure 400 {object} response.ResponseError
 // @Failure 500 {object} response.ResponseError
-func (h *handlerV1) GetAllCars(c *gin.Context) {
+func (h *handlerV1) GetAllBrands(c *gin.Context) {
 
 	_ = h.MakeProxy(c, h.cfg.CarServiceURL, c.Request.URL.Path)
 }
 
 // @Security ApiKeyAuth
-// @Router /v1/car/{id} [put]
-// @Summary Update Car
-// @Description API for updating car
-// @Tags car
+// @Router /v1/brand/{id} [put]
+// @Summary Update Brand
+// @Description API for updating brand
+// @Tags brand
 // @Accept json
 // @Produce json
 // @Param Platform-Id header string true "platform-id" default(7d4a4c38-dd84-4902-b744-0488b80a4c01)
 // @Param id path string true "id"
-// @Param Car body car24_car_service.UpdateCarModel true "car"
+// @Param Car body car24_car_service.UpdateBrandModel true "car"
 // @Success 201 {object} response.ResponseOK
 // @Failure 400 {object} response.ResponseError
 // @Failure 500 {object} response.ResponseError
-func (h *handlerV1) UpdateCar(c *gin.Context) {
+func (h *handlerV1) UpdateBrand(c *gin.Context) {
 	var (
-		car car24_car_service.UpdateCarModel
+		brand car24_car_service.UpdateBrandModel
 	)
 
-	err := c.ShouldBindJSON(&car)
+	err := c.ShouldBindJSON(&brand)
 	if HandleError(c, h.log, err, "error while binding body to model") {
 		return
 	}
@@ -118,18 +118,18 @@ func (h *handlerV1) UpdateCar(c *gin.Context) {
 		return
 	}
 
-	car.ID = c.Param("id")
+	brand.ID = c.Param("id")
 
 	e := cloudevents.NewEvent()
 	e.SetID(uuid.New().String())
 	e.SetSource(c.FullPath())
-	e.SetType("v1.car_service.car.update")
-	err = e.SetData(cloudevents.ApplicationJSON, car)
+	e.SetType("v1.car_service.brand.update")
+	err = e.SetData(cloudevents.ApplicationJSON, brand)
 	if HandleError(c, h.log, err, "error while setting event data") {
 		return
 	}
 
-	err = h.kafka.Push("v1.car_service.car.update", e)
+	err = h.kafka.Push("v1.car_service.brand.update", e)
 	if HandleError(c, h.log, err, "error while publishing event") {
 		return
 	}
@@ -140,10 +140,10 @@ func (h *handlerV1) UpdateCar(c *gin.Context) {
 }
 
 // @Security ApiKeyAuth
-// @Router /v1/car/{id} [delete]
-// @Summary Delete Car
-// @Description API for deleting car
-// @Tags car
+// @Router /v1/brand/{id} [delete]
+// @Summary Delete Brand
+// @Description API for deleting brand
+// @Tags brand
 // @Accept json
 // @Produce json
 // @Param Platform-Id header string true "platform-id" default(7d4a4c38-dd84-4902-b744-0488b80a4c01)
@@ -151,9 +151,9 @@ func (h *handlerV1) UpdateCar(c *gin.Context) {
 // @Success 201 {object} response.ResponseOK
 // @Failure 400 {object} response.ResponseError
 // @Failure 500 {object} response.ResponseError
-func (h *handlerV1) DeleteCar(c *gin.Context) {
+func (h *handlerV1) DeleteBrand(c *gin.Context) {
 	var (
-		request car24_car_service.DeleteCarModel
+		request car24_car_service.DeleteBrandModel
 	)
 
 	correlationID, err := uuid.NewRandom()
@@ -166,13 +166,13 @@ func (h *handlerV1) DeleteCar(c *gin.Context) {
 	e := cloudevents.NewEvent()
 	e.SetID(uuid.New().String())
 	e.SetSource(c.FullPath())
-	e.SetType("v1.car_service.car.delete")
+	e.SetType("v1.car_service.brand.delete")
 	err = e.SetData(cloudevents.ApplicationJSON, request)
 	if HandleError(c, h.log, err, "error while setting event data") {
 		return
 	}
 
-	err = h.kafka.Push("v1.car_service.car.delete", e)
+	err = h.kafka.Push("v1.car_service.brand.delete", e)
 	if HandleError(c, h.log, err, "error while publishing event") {
 		return
 	}

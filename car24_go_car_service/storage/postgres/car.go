@@ -41,16 +41,18 @@ func (br *carRepo) Create(car *cs.CreateCarModel) (string, error) {
 	INSERT INTO 
 		car(
 			id,
+			mark_id,
 			category_id,
 			investor_id,
 			state_number,
 			updated_at
 		)
-	VALUES ($1, $2, $3, $4, now())`
+	VALUES ($1, $2, $3, $4, $5, now())`
 
 	_, err = tsx.Exec(
 		query,
 		car.ID,
+		car.MarkID,
 		car.CategoryID,
 		car.InvestorID,
 		car.StateNumber,
@@ -65,6 +67,8 @@ func (br *carRepo) Create(car *cs.CreateCarModel) (string, error) {
 
 func (br *carRepo) Get(id string) (*cs.CarModel, error) {
 	var (
+		markId      sql.NullString
+		markName    sql.NullString
 		categoryId  sql.NullString
 		investorId  sql.NullString
 		stateNumber sql.NullString
@@ -74,17 +78,22 @@ func (br *carRepo) Get(id string) (*cs.CarModel, error) {
 
 	query := `
 		SELECT
-			category_id,
-			investor_id,
-			state_number,
-			updated_at,
-			created_at
-		FROM car
-		WHERE id = $1
+			m.id,
+			m.name,
+			c.category_id,
+			c.investor_id,
+			c.state_number,
+			c.updated_at,
+			c.created_at
+		FROM car AS c
+		JOIN mark AS m ON m.id = c.mark_id
+		WHERE c.id = $1
 	`
 
 	row := br.db.QueryRow(query, id)
 	err := row.Scan(
+		&markId,
+		&markName,
 		&categoryId,
 		&investorId,
 		&stateNumber,
@@ -97,6 +106,8 @@ func (br *carRepo) Get(id string) (*cs.CarModel, error) {
 
 	return &cs.CarModel{
 		ID:          id,
+		MarkID:      markId.String,
+		MarkName:    markName.String,
 		CategoryID:  categoryId.String,
 		InvestorID:  investorId.String,
 		StateNumber: stateNumber.String,
@@ -118,14 +129,17 @@ func (br *carRepo) GetAll(queryParam cs.CarQueryParamModel) (res cs.CarListModel
 	query = `
 		SELECT
 			COUNT(*) OVER(),
-			id,
-			category_id,
-			investor_id,
-			state_number,
-			updated_at,
-			created_at
+			c.id,
+			m.id,
+			m.name,
+			c.category_id,
+			c.investor_id,
+			c.state_number,
+			c.updated_at,
+			c.created_at
 		FROM
-			car
+			car AS c
+		JOIN mark AS m ON m.id = c.mark_id
 	`
 
 	if queryParam.Offset > 0 {
@@ -148,6 +162,8 @@ func (br *carRepo) GetAll(queryParam cs.CarQueryParamModel) (res cs.CarListModel
 	for rows.Next() {
 		var (
 			id          sql.NullString
+			markId      sql.NullString
+			markName    sql.NullString
 			categoryId  sql.NullString
 			investorId  sql.NullString
 			stateNumber sql.NullString
@@ -158,6 +174,8 @@ func (br *carRepo) GetAll(queryParam cs.CarQueryParamModel) (res cs.CarListModel
 		err := rows.Scan(
 			&res.Count,
 			&id,
+			&markId,
+			&markName,
 			&categoryId,
 			&investorId,
 			&stateNumber,
@@ -170,6 +188,8 @@ func (br *carRepo) GetAll(queryParam cs.CarQueryParamModel) (res cs.CarListModel
 
 		res.Cars = append(res.Cars, cs.CarModel{
 			ID:          id.String,
+			MarkID:      markId.String,
+			MarkName:    markName.String,
 			CategoryID:  categoryId.String,
 			InvestorID:  investorId.String,
 			StateNumber: stateNumber.String,
@@ -192,6 +212,7 @@ func (br *carRepo) Update(car *cs.UpdateCarModel) (err error) {
 			UPDATE 
 			    car
 			SET
+				mark_id = :mark_id,
 				category_id = :category_id,
 				investor_id = :investor_id,
 				state_number = :state_number,
@@ -200,6 +221,7 @@ func (br *carRepo) Update(car *cs.UpdateCarModel) (err error) {
 				id = :id`
 	params = map[string]interface{}{
 		"id":           car.ID,
+		"mark_id":      car.MarkID,
 		"category_id":  car.CategoryID,
 		"investor_id":  car.InvestorID,
 		"state_number": car.StateNumber,

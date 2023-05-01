@@ -2,6 +2,8 @@ package car24_car_service
 
 type CarModel struct {
 	ID          string `json:"id"`
+	MarkID      string `json:"mark_id"`
+	MarkName    string `json:"mark_name"`
 	CategoryID  string `json:"category_id"`
 	InvestorID  string `json:"investor_id"`
 	StateNumber string `json:"state_number"`
@@ -11,6 +13,7 @@ type CarModel struct {
 
 type CreateCarModel struct {
 	ID          string `json:"id"`
+	MarkID      string `json:"mark_id"`
 	CategoryID  string `json:"category_id"`
 	InvestorID  string `json:"investor_id"`
 	StateNumber string `json:"state_number"`
@@ -18,6 +21,7 @@ type CreateCarModel struct {
 
 type UpdateCarModel struct {
 	ID          string `json:"id"`
+	MarkID      string `json:"mark_id"`
 	CategoryID  string `json:"category_id"`
 	InvestorID  string `json:"investor_id"`
 	StateNumber string `json:"state_number"`

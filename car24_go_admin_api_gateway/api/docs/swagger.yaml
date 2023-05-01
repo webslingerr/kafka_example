@@ -1,4 +1,24 @@
 definitions:
+  car24_car_service.BrandListModel:
+    properties:
+      brands:
+        items:
+          $ref: '#/definitions/car24_car_service.BrandModel'
+        type: array
+      count:
+        type: integer
+    type: object
+  car24_car_service.BrandModel:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
   car24_car_service.CarListModel:
     properties:
       cars:
@@ -18,9 +38,18 @@ definitions:
         type: string
       investor_id:
         type: string
+      mark_id:
+        type: string
       state_number:
         type: string
       updated_at:
+        type: string
+    type: object
+  car24_car_service.CreateBrandModel:
+    properties:
+      id:
+        type: string
+      name:
         type: string
     type: object
   car24_car_service.CreateCarModel:
@@ -31,7 +60,49 @@ definitions:
         type: string
       investor_id:
         type: string
+      mark_id:
+        type: string
       state_number:
+        type: string
+    type: object
+  car24_car_service.CreateMarkModel:
+    properties:
+      brand_id:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  car24_car_service.MarkListModel:
+    properties:
+      count:
+        type: integer
+      marks:
+        items:
+          $ref: '#/definitions/car24_car_service.MarkModel'
+        type: array
+    type: object
+  car24_car_service.MarkModel:
+    properties:
+      brand_id:
+        type: string
+      brand_name:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  car24_car_service.UpdateBrandModel:
+    properties:
+      id:
+        type: string
+      name:
         type: string
     type: object
   car24_car_service.UpdateCarModel:
@@ -42,7 +113,18 @@ definitions:
         type: string
       investor_id:
         type: string
+      mark_id:
+        type: string
       state_number:
+        type: string
+    type: object
+  car24_car_service.UpdateMarkModel:
+    properties:
+      brand_id:
+        type: string
+      id:
+        type: string
+      name:
         type: string
     type: object
   response.Error:
@@ -65,6 +147,195 @@ definitions:
 info:
   contact: {}
 paths:
+  /v1/brand:
+    get:
+      consumes:
+      - application/json
+      description: API for getting all brand
+      parameters:
+      - default: 10
+        in: query
+        name: limit
+        type: integer
+      - default: 0
+        in: query
+        name: offset
+        type: integer
+      - in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/car24_car_service.BrandListModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: Get brands
+      tags:
+      - brand
+    post:
+      consumes:
+      - application/json
+      description: API for creating brand
+      parameters:
+      - default: 7d4a4c38-dd84-4902-b744-0488b80a4c01
+        description: platform-id
+        in: header
+        name: Platform-Id
+        required: true
+        type: string
+      - description: brand
+        in: body
+        name: Car
+        required: true
+        schema:
+          $ref: '#/definitions/car24_car_service.CreateBrandModel'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.ResponseOK'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: Create Brand
+      tags:
+      - brand
+  /v1/brand/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: API for deleting brand
+      parameters:
+      - default: 7d4a4c38-dd84-4902-b744-0488b80a4c01
+        description: platform-id
+        in: header
+        name: Platform-Id
+        required: true
+        type: string
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.ResponseOK'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete Brand
+      tags:
+      - brand
+    get:
+      consumes:
+      - application/json
+      description: API for getting brand
+      parameters:
+      - default: 7d4a4c38-dd84-4902-b744-0488b80a4c01
+        description: platform-id
+        in: header
+        name: Platform-Id
+        required: true
+        type: string
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/car24_car_service.BrandModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Brand
+      tags:
+      - brand
+    put:
+      consumes:
+      - application/json
+      description: API for updating brand
+      parameters:
+      - default: 7d4a4c38-dd84-4902-b744-0488b80a4c01
+        description: platform-id
+        in: header
+        name: Platform-Id
+        required: true
+        type: string
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: car
+        in: body
+        name: Car
+        required: true
+        schema:
+          $ref: '#/definitions/car24_car_service.UpdateBrandModel'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.ResponseOK'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: Update Brand
+      tags:
+      - brand
   /v1/car:
     get:
       consumes:
@@ -254,6 +525,195 @@ paths:
       summary: Update Car
       tags:
       - car
+  /v1/mark:
+    get:
+      consumes:
+      - application/json
+      description: API for getting all cars
+      parameters:
+      - default: 10
+        in: query
+        name: limit
+        type: integer
+      - default: 0
+        in: query
+        name: offset
+        type: integer
+      - in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/car24_car_service.MarkListModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: Get marks
+      tags:
+      - mark
+    post:
+      consumes:
+      - application/json
+      description: API for creating mark
+      parameters:
+      - default: 7d4a4c38-dd84-4902-b744-0488b80a4c01
+        description: platform-id
+        in: header
+        name: Platform-Id
+        required: true
+        type: string
+      - description: mark
+        in: body
+        name: Mark
+        required: true
+        schema:
+          $ref: '#/definitions/car24_car_service.CreateMarkModel'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.ResponseOK'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: Create Mark
+      tags:
+      - mark
+  /v1/mark/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: API for deleting mark
+      parameters:
+      - default: 7d4a4c38-dd84-4902-b744-0488b80a4c01
+        description: platform-id
+        in: header
+        name: Platform-Id
+        required: true
+        type: string
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.ResponseOK'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete Mark
+      tags:
+      - mark
+    get:
+      consumes:
+      - application/json
+      description: API for getting mark
+      parameters:
+      - default: 7d4a4c38-dd84-4902-b744-0488b80a4c01
+        description: platform-id
+        in: header
+        name: Platform-Id
+        required: true
+        type: string
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/car24_car_service.MarkModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Mark
+      tags:
+      - mark
+    put:
+      consumes:
+      - application/json
+      description: API for updating mark
+      parameters:
+      - default: 7d4a4c38-dd84-4902-b744-0488b80a4c01
+        description: platform-id
+        in: header
+        name: Platform-Id
+        required: true
+        type: string
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: mark
+        in: body
+        name: Mark
+        required: true
+        schema:
+          $ref: '#/definitions/car24_car_service.UpdateMarkModel'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.ResponseOK'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: Update Mark
+      tags:
+      - mark
 securityDefinitions:
   ApiKeyAuth:
     in: header

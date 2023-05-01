@@ -14,7 +14,7 @@ import (
 	"gitlab.udevs.io/car24/car24_go_admin_api_gateway/pkg/logger"
 )
 
-//Config ...
+// Config ...
 type Config struct {
 	Logger logger.Logger
 	Cfg    config.Config
@@ -22,7 +22,7 @@ type Config struct {
 }
 
 // New
-//@securityDefinitions.apikey ApiKeyAuth
+// @securityDefinitions.apikey ApiKeyAuth
 // @in header
 // @name Authorization
 func New(cnf Config) *gin.Engine {
@@ -52,6 +52,18 @@ func New(cnf Config) *gin.Engine {
 	r.GET("/v1/car", handlerV1.GetAllCars)
 	r.PUT("/v1/car/:id", handlerV1.UpdateCar)
 	r.DELETE("/v1/car/:id", handlerV1.DeleteCar)
+
+	r.POST("/v1/mark", handlerV1.CreateMark)
+	r.GET("/v1/mark/:id", handlerV1.GetMark)
+	r.GET("/v1/mark", handlerV1.GetAllMarks)
+	r.PUT("/v1/mark/:id", handlerV1.UpdateMark)
+	r.DELETE("/v1/mark/:id", handlerV1.DeleteMark)
+
+	r.POST("/v1/brand", handlerV1.CreateBrand)
+	r.GET("/v1/brand/:id", handlerV1.GetBrand)
+	r.GET("/v1/brand", handlerV1.GetAllBrands)
+	r.PUT("/v1/brand/:id", handlerV1.UpdateBrand)
+	r.DELETE("/v1/brand/:id", handlerV1.DeleteBrand)
 
 	url := ginSwagger.URL("swagger/doc.json") // The url pointing to API definition
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))

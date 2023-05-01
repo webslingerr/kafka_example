@@ -22,7 +22,7 @@ type handlerV1 struct {
 	kafka *event.Kafka
 }
 
-//HandlerV1Config ...
+// HandlerV1Config ...
 type HandlerV1Config struct {
 	Logger logger.Logger
 	Cfg    config.Config
@@ -52,7 +52,7 @@ const (
 	ErrorCodeNotApproved = "NOT_APPROVED"
 )
 
-//New ...
+// New ...
 func New(c *HandlerV1Config) *handlerV1 {
 	return &handlerV1{
 		log:   c.Logger,

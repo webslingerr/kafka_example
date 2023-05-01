@@ -38,8 +38,8 @@ func Load() Config {
 
 	config.PostgresHost = cast.ToString(getOrReturnDefault("POSTGRES_HOST", "localhost"))
 	config.PostgresPort = cast.ToInt(getOrReturnDefault("POSTGRES_PORT", 5432))
-	config.PostgresUser = cast.ToString(getOrReturnDefault("POSTGRES_USER", "postgres"))
-	config.PostgresPassword = cast.ToString(getOrReturnDefault("POSTGRES_PASSWORD", "7562462"))
+	config.PostgresUser = cast.ToString(getOrReturnDefault("POSTGRES_USER", "shokhrukh"))
+	config.PostgresPassword = cast.ToString(getOrReturnDefault("POSTGRES_PASSWORD", "12345"))
 	config.PostgresDatabase = cast.ToString(getOrReturnDefault("POSTGRES_DATABASE", "car_service"))
 
 	config.KafkaUrl = cast.ToString(getOrReturnDefault("KAFKA_URL", "localhost:9092"))

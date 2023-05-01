@@ -12,8 +12,8 @@ TAG=latest
 ENV_TAG=latest
 BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 # Including
-include .build_info
--include .env
+# include .build_info
+# -include .env
 
 POSTGRESQL_URL='postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}?sslmode=disable'
 
@@ -63,10 +63,10 @@ push-image:
 	docker push ${REGISTRY}/${PROJECT_NAME}/${IMG_NAME}:${ENV_TAG}
 
 migrate-local-up:
-	migrate -database 'postgres://postgres:wie4cungaiNg3moh@178.128.206.122:30432/car_service?sslmode=disable' -path migrations up
+	migrate -path ./migrations -database 'postgres://shokhrukh:12345@localhost:5432/car_service?sslmode=disable' up
 
 migrate-local-down:
-	migrate -database ${POSTGRESQL_URL} -path migrations down
+	migrate -path ./migrations -database 'postgres://shokhrukh:12345@localhost:5432/car_service?sslmode=disable' up
 
 create-new-migration:
 	migrate create -ext sql -dir migrations -seq $(name)

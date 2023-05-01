@@ -45,6 +45,16 @@ func New(opt *RouterOptions) *gin.Engine {
 		apiV1.GET("/car/:id", handlerV1.GetCar)
 		apiV1.GET("/car", handlerV1.GetAllCars)
 		// <---
+
+		// Brand --->
+		apiV1.GET("/brand/:id", handlerV1.GetBrand)
+		apiV1.GET("/brand", handlerV1.GetAllBrands)
+		// <---
+
+		// Brand --->
+		apiV1.GET("/mark/:id", handlerV1.GetMark)
+		apiV1.GET("/mark", handlerV1.GetAllMarks)
+		// <---
 	}
 
 	url := ginSwagger.URL("swagger/doc.json") // The url pointing to API definition

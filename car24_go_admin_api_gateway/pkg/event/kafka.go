@@ -45,4 +45,12 @@ func (kafka *Kafka) RegisterPublishers() {
 	kafka.AddPublisher("v1.car_service.car.create")
 	kafka.AddPublisher("v1.car_service.car.delete")
 	kafka.AddPublisher("v1.car_service.car.update")
+
+	kafka.AddPublisher("v1.car_service.brand.create")
+	kafka.AddPublisher("v1.car_service.brand.delete")
+	kafka.AddPublisher("v1.car_service.brand.update")
+
+	kafka.AddPublisher("v1.car_service.mark.create")
+	kafka.AddPublisher("v1.car_service.mark.delete")
+	kafka.AddPublisher("v1.car_service.mark.update")
 }
